@@ -14,13 +14,19 @@ public class PizzaService
 
     public IEnumerable<Pizza> GetAll()
     {
-        throw new NotImplementedException();
+        return _context.Pizzas
+            .AsNoTracking()
+            .ToList();
     }
 
     public Pizza? GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
+{
+    return _context.Pizzas
+        .Include(p => p.Toppings)
+        .Include(p => p.Sauce)
+        .AsNoTracking()
+        .SingleOrDefault(p => p.Id == id);
+}
 
     public Pizza? Create(Pizza newPizza)
     {

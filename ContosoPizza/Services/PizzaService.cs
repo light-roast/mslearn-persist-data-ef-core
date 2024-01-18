@@ -1,13 +1,15 @@
 using ContosoPizza.Models;
 using ContosoPizza.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContosoPizza.Services;
 
 public class PizzaService
 {
-    public PizzaService()
+    private readonly PizzaContext _context;
+    public PizzaService(PizzaContext context)
     {
-        
+        _context = context;
     }
 
     public IEnumerable<Pizza> GetAll()

@@ -28,10 +28,13 @@ public class PizzaService
         .SingleOrDefault(p => p.Id == id);
 }
 
-    public Pizza? Create(Pizza newPizza)
-    {
-        throw new NotImplementedException();
-    }
+   public Pizza Create(Pizza newPizza)
+{
+    _context.Pizzas.Add(newPizza);
+    _context.SaveChanges();
+
+    return newPizza;
+}
 
     public void AddTopping(int PizzaId, int ToppingId)
     {

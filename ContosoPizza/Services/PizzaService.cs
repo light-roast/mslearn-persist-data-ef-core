@@ -56,13 +56,27 @@ public class PizzaService
     _context.SaveChanges();
 }
 
-    public void UpdateSauce(int PizzaId, int SauceId)
+    public void UpdateSauce(int pizzaId, int sauceId)
+{
+    var pizzaToUpdate = _context.Pizzas.Find(pizzaId);
+    var sauceToUpdate = _context.Sauces.Find(sauceId);
+
+    if (pizzaToUpdate is null || sauceToUpdate is null)
     {
-        throw new NotImplementedException();
+        throw new InvalidOperationException("Pizza or sauce does not exist");
     }
 
+    pizzaToUpdate.Sauce = sauceToUpdate;
+
+    _context.SaveChanges();
+}
+
     public void DeleteById(int id)
+{
+    var pizzaToDelete = _context.Pizzas.Find(id);
+    if (pizzaToDelete is not null)
     {
-        throw new NotImplementedException();
-    }
+        _context.Pizzas.Remove(pizzaToDelete);
+        _context.SaveChanges();
+    }        
 }
